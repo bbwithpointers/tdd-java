@@ -1,4 +1,4 @@
-package org.example;
+package org.estudostdd;
 
 public class CamelCaseConverter {
     public String converter(String name) {

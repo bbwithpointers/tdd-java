@@ -1,6 +1,6 @@
 package junit;
 
-import org.example.CamelCaseConverter;
+import org.estudostdd.CamelCaseConverter;
 import org.junit.Before;
 import org.junit.Test;
 
