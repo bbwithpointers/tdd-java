@@ -1,5 +1,6 @@
 package junit;
 
+import org.estudostdd.ResumoPedido;
 import org.estudostdd.model.ItemPedido;
 import org.estudostdd.model.Pedido;
 import org.junit.Before;
@@ -17,8 +18,9 @@ public class PedidoTest {
     }
 
     private void assertResumoPedido(double valorTotal, double desconto) {
-        assertEquals(valorTotal, pedido.valorTotal(), 0.0001);
-        assertEquals(desconto, pedido.desconto(), 0.0001);
+        ResumoPedido resumoPedido = pedido.resumo();
+        assertEquals(valorTotal, resumoPedido.getValorTotal(), 0.0001);
+        assertEquals(desconto, resumoPedido.getDesconto(), 0.0001);
     }
 
     @Test
@@ -39,5 +41,35 @@ public class PedidoTest {
         assertResumoPedido(25.0, 0.0);
     }
 
+    @Test
+    public void calcularResumoParaDoisItensSemDesconto() {
+        pedido.adicionarItem(new ItemPedido("sabonete", 3.0, 3));
+        pedido.adicionarItem(new ItemPedido("Pasta dental", 4.0, 3));
+        assertResumoPedido(21.0, 0);
+    }
+
+    @Test
+    public void aplicarDescontoNaPrimeiraFaixaTest() {
+        // acima de 300 reais - 4% de desconto
+        pedido.adicionarItem(new ItemPedido("Creme", 20.0, 20));
+        assertResumoPedido(400.0, 16.0);
+    }
+
+    @Test
+    public void aplicarDescontoNaSegundaFaixaTest() {
+        pedido.adicionarItem(new ItemPedido("Shampoo", 15.0, 30));
+        pedido.adicionarItem(new ItemPedido("Creme", 15.0, 30));
+        // aplica 6% de desconto acima de 800
+        assertResumoPedido(900.0, 54.0);
+    }
+
+    @Test
+    public void aplicarDescontoTerceiraFaixaTest(){
+        pedido.adicionarItem(new ItemPedido("Shampoo", 15.0, 30));
+        pedido.adicionarItem(new ItemPedido("Creme", 15.0, 30));
+        pedido.adicionarItem(new ItemPedido("Sabonete", 10.0, 30));
+        // acima de 1000 aplica 8% de desconto
+        assertResumoPedido(1200.0, 96.0);
+    }
 
 }
