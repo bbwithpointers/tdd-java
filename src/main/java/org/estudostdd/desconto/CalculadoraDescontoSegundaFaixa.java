@@ -8,7 +8,7 @@ public class CalculadoraDescontoSegundaFaixa extends CalculadoraFaixaDesconto{
 
     @Override
     protected double calcular(double valorTotal) {
-        if (valorTotal > 800 && valorTotal <= 1000.0) {
+        if (valorTotal > 800.0 && valorTotal <= 1000.0) {
             return valorTotal * 0.06;
         }
         return -1;

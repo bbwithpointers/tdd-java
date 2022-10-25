@@ -15,10 +15,11 @@ public class PedidoTest {
 
     @Before
     public void setup() {
-        CalculadoraFaixaDesconto calculadoraFaixaDesconto = new CalculadoraDescontoTerceiraFaixa(
-                new CalculadoraDescontoSegundaFaixa(
-                        new CalculadoraDescontoPrimeiraFaixa(
-                                new SemDesconto(null))));
+        CalculadoraFaixaDesconto calculadoraFaixaDesconto =
+                new CalculadoraDescontoTerceiraFaixa(
+                        new CalculadoraDescontoSegundaFaixa(
+                                new CalculadoraDescontoPrimeiraFaixa(
+                                        new SemDesconto(null))));
         pedido = new Pedido(calculadoraFaixaDesconto);
     }
 
