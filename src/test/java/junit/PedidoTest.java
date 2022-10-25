@@ -1,6 +1,7 @@
 package junit;
 
-import org.estudostdd.ResumoPedido;
+import org.estudostdd.desconto.*;
+import org.estudostdd.model.ResumoPedido;
 import org.estudostdd.model.ItemPedido;
 import org.estudostdd.model.Pedido;
 import org.junit.Before;
@@ -14,7 +15,11 @@ public class PedidoTest {
 
     @Before
     public void setup() {
-        pedido = new Pedido();
+        CalculadoraFaixaDesconto calculadoraFaixaDesconto = new CalculadoraDescontoTerceiraFaixa(
+                new CalculadoraDescontoSegundaFaixa(
+                        new CalculadoraDescontoPrimeiraFaixa(
+                                new SemDesconto(null))));
+        pedido = new Pedido(calculadoraFaixaDesconto);
     }
 
     private void assertResumoPedido(double valorTotal, double desconto) {
@@ -64,7 +69,7 @@ public class PedidoTest {
     }
 
     @Test
-    public void aplicarDescontoTerceiraFaixaTest(){
+    public void aplicarDescontoTerceiraFaixaTest() {
         pedido.adicionarItem(new ItemPedido("Shampoo", 15.0, 30));
         pedido.adicionarItem(new ItemPedido("Creme", 15.0, 30));
         pedido.adicionarItem(new ItemPedido("Sabonete", 10.0, 30));

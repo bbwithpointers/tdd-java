@@ -1,4 +1,4 @@
-package org.estudostdd;
+package org.estudostdd.model;
 
 public class ResumoPedido {
     private double valorTotal;
